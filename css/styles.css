@@ -447,3 +447,44 @@ ul { list-style: none; }
   .lineage-photos { grid-template-columns: 1fr; }
   .lineage-photos figure img { height: 260px; }
 }
+
+/* ── About ── */
+.about__grid {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 64px;
+  align-items: start;
+}
+.about__photo-wrap {
+  position: relative;
+  margin-bottom: 20px;
+}
+.about__photo-wrap img {
+  width: 100%;
+  height: 440px;
+  object-fit: cover;
+  object-position: top;
+  border: 1px solid #1e1e1e;
+}
+.about__cert img {
+  width: 100%;
+  border: 1px solid #1e1e1e;
+  opacity: 0.9;
+}
+.about__cert-caption {
+  color: var(--faint);
+  font-size: 0.72rem;
+  text-align: center;
+  margin-top: 8px;
+  font-style: italic;
+}
+.about__text p {
+  color: var(--muted);
+  line-height: 1.8;
+  margin-bottom: 18px;
+}
+
+@media (max-width: 900px) {
+  .about__grid { grid-template-columns: 1fr; gap: 40px; }
+  .about__photo-wrap img { height: 320px; }
+}
