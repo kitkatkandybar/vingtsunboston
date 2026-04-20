@@ -488,3 +488,61 @@ ul { list-style: none; }
   .about__grid { grid-template-columns: 1fr; gap: 40px; }
   .about__photo-wrap img { height: 320px; }
 }
+
+/* ── Training ── */
+.training-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 56px;
+}
+.training-card {
+  background: var(--bg);
+  border: 1px solid #1e1e1e;
+  border-top: 3px solid var(--gold);
+  padding: 32px 24px;
+}
+.training-card__num {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: var(--gold);
+  opacity: 0.25;
+  line-height: 1;
+  margin-bottom: 12px;
+}
+.training-card h4 {
+  color: var(--text);
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 14px;
+}
+.training-card p {
+  color: var(--muted);
+  font-size: 0.875rem;
+  line-height: 1.7;
+  margin-bottom: 10px;
+}
+.training-card strong { color: var(--text); }
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.benefit-item {
+  background: var(--bg);
+  border: 1px solid #1e1e1e;
+  padding: 16px 20px;
+  color: var(--muted);
+  font-size: 0.875rem;
+  border-left: 3px solid var(--gold-dim);
+}
+
+@media (max-width: 900px) {
+  .training-grid { grid-template-columns: 1fr; }
+  .benefits-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .benefits-grid { grid-template-columns: 1fr; }
+}
