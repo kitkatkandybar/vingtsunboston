@@ -61,3 +61,16 @@ document.addEventListener('keydown', e => {
 // ── Footer year ──
 const yearEl = document.getElementById('footerYear');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+// ── Scroll reveal ──
+const revealEls = document.querySelectorAll('[data-reveal]');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('revealed');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+revealEls.forEach(el => revealObserver.observe(el));
