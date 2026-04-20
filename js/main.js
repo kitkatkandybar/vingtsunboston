@@ -57,3 +57,7 @@ document.addEventListener('keydown', e => {
   if (e.key === 'ArrowRight') showNext();
   if (e.key === 'ArrowLeft') showPrev();
 });
+
+// ── Footer year ──
+const yearEl = document.getElementById('footerYear');
+if (yearEl) yearEl.textContent = new Date().getFullYear();
