@@ -610,6 +610,36 @@ ul { list-style: none; }
   .classes-grid { grid-template-columns: 1fr; gap: 40px; }
 }
 
+/* ── Classes photo band (A.1) ── */
+.classes-photo-band {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+  margin-bottom: 56px;
+  width: 100%;
+  animation: none !important;
+}
+.classes-photo-band img {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  border: 1px solid #1e1e1e;
+  cursor: pointer;
+  transition: opacity var(--transition);
+  height: auto;
+  flex-shrink: initial;
+}
+.classes-photo-band img:hover { opacity: 0.75; }
+
+@media (max-width: 900px) {
+  .classes-photo-band { grid-template-columns: repeat(4, 1fr); }
+  .classes-photo-band img:nth-child(n+5) { display: none; }
+}
+@media (max-width: 500px) {
+  .classes-photo-band { grid-template-columns: repeat(2, 1fr); }
+  .classes-photo-band img:nth-child(n+3) { display: none; }
+}
+
 /* ── Gallery ── */
 .gallery-track-wrap {
   display: flex;
