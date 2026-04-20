@@ -295,3 +295,49 @@ ul { list-style: none; }
   .stats__item { border-right: none; border-bottom: 1px solid #222; padding: 16px; }
   .stats__item:last-child { border-bottom: none; }
 }
+
+/* ── What is Ving Tsun ── */
+.section-title {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  margin-bottom: 24px;
+  line-height: 1.15;
+}
+
+.what__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+.what__text p {
+  color: var(--muted);
+  margin-bottom: 18px;
+  line-height: 1.8;
+}
+.what__text strong { color: var(--text); }
+.what__text em { color: var(--gold); font-style: normal; }
+
+.principle-card {
+  border-left: 3px solid var(--gold);
+  padding: 14px 18px;
+  margin-bottom: 16px;
+  background: var(--gold-faint);
+}
+.principle-card h4 {
+  color: var(--gold);
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.principle-card p {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .what__grid { grid-template-columns: 1fr; gap: 40px; }
+}
