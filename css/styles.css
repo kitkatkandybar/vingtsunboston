@@ -610,34 +610,78 @@ ul { list-style: none; }
   .classes-grid { grid-template-columns: 1fr; gap: 40px; }
 }
 
-/* ── Classes photo band (A.1) ── */
+/* ── Classes photo band — polaroid strip ── */
 .classes-photo-band {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 12px;
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  align-items: flex-start;
   margin-bottom: 56px;
   width: 100%;
   animation: none !important;
 }
-.classes-photo-band img {
+
+.polaroid-frame {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.polaroid {
+  background: #e8e2d4;
+  padding: 7px 7px 24px 7px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.7), 0 2px 8px rgba(0,0,0,0.4);
+  width: 100%;
+  transition: transform 0.35s cubic-bezier(.22,.68,0,1.2), box-shadow 0.3s;
+  cursor: pointer;
+}
+.polaroid:hover {
+  transform: scale(1.05) rotate(0deg) !important;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.85), 0 4px 12px rgba(0,0,0,0.5);
+}
+
+.polaroid-frame:nth-child(1) .polaroid { transform: rotate(-3deg); }
+.polaroid-frame:nth-child(2) .polaroid { transform: rotate( 2.5deg); }
+.polaroid-frame:nth-child(3) .polaroid { transform: rotate(-2deg); }
+.polaroid-frame:nth-child(4) .polaroid { transform: rotate( 3.5deg); }
+.polaroid-frame:nth-child(5) .polaroid { transform: rotate(-1.5deg); }
+.polaroid-frame:nth-child(6) .polaroid { transform: rotate( 2deg); }
+
+.polaroid-img-wrap {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+.polaroid-img-wrap img {
   width: 100%;
   aspect-ratio: 3/4;
   object-fit: cover;
-  border: 1px solid #1e1e1e;
-  cursor: pointer;
-  transition: opacity var(--transition);
-  height: auto;
-  flex-shrink: initial;
+  display: block;
 }
-.classes-photo-band img:hover { opacity: 0.75; }
 
-@media (max-width: 900px) {
-  .classes-photo-band { grid-template-columns: repeat(4, 1fr); }
-  .classes-photo-band img:nth-child(n+5) { display: none; }
+.polaroid-curtain {
+  position: absolute;
+  inset: 0;
+  background: #1a1a1a;
+  z-index: 2;
+  clip-path: inset(100% 0 0 0);
 }
-@media (max-width: 500px) {
-  .classes-photo-band { grid-template-columns: repeat(2, 1fr); }
-  .classes-photo-band img:nth-child(n+3) { display: none; }
+.polaroid-bar {
+  position: absolute;
+  left: 0; right: 0;
+  height: 2px;
+  background: #c9a84c;
+  box-shadow: 0 0 8px #c9a84c, 0 0 20px rgba(201,168,76,0.4);
+  z-index: 3;
+  top: 0;
+  opacity: 0;
+}
+
+@media (max-width: 700px) {
+  .polaroid-frame:nth-child(n+4) { display: none; }
+}
+@media (max-width: 480px) {
+  .polaroid-frame:nth-child(n+3) { display: none; }
 }
 
 /* ── Gallery ── */

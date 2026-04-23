@@ -58,6 +58,67 @@ document.addEventListener('keydown', e => {
   if (e.key === 'ArrowLeft') showPrev();
 });
 
+// ── Classes polaroid cycling ──
+(function () {
+  const IMAGES = Array.from({ length: 58 }, (_, i) => {
+    const n = String(i + 1).padStart(3, '0');
+    return `assets/gallery/ig_${n}.jpg`;
+  });
+
+  const SWEEP_MS = 800;
+
+  const panels = Array.from(document.querySelectorAll('.classes-photo-band .polaroid-frame')).map(frame => ({
+    img:     frame.querySelector('img'),
+    curtain: frame.querySelector('.polaroid-curtain'),
+    bar:     frame.querySelector('.polaroid-bar'),
+    current: frame.querySelector('img').getAttribute('src'),
+  }));
+
+  function pickNext(current) {
+    const pool = IMAGES.filter(src => src !== current);
+    return pool[Math.floor(Math.random() * pool.length)];
+  }
+
+  function revealPanel(panel) {
+    const { img, curtain, bar } = panel;
+    const next  = pickNext(panel.current);
+    const imgH  = curtain.parentElement.offsetHeight;
+
+    curtain.style.transition = 'none';
+    curtain.style.clipPath   = 'inset(0 0 0 0)';
+    bar.style.transition     = 'none';
+    bar.style.top            = '0px';
+    bar.style.opacity        = '0';
+
+    setTimeout(() => {
+      img.setAttribute('src', next);
+      panel.current = next;
+      setTimeout(() => {
+        bar.style.opacity = '1';
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          bar.style.transition     = `top ${SWEEP_MS}ms cubic-bezier(.4,0,.6,1)`;
+          bar.style.top            = imgH + 'px';
+          curtain.style.transition = `clip-path ${SWEEP_MS}ms cubic-bezier(.4,0,.6,1)`;
+          curtain.style.clipPath   = 'inset(100% 0 0 0)';
+          setTimeout(() => {
+            bar.style.transition = 'opacity 0.3s';
+            bar.style.opacity    = '0';
+          }, SWEEP_MS - 80);
+          scheduleNext(panel);
+        }));
+      }, 120);
+    }, 80);
+  }
+
+  function scheduleNext(panel) {
+    setTimeout(() => revealPanel(panel), 3500 + Math.floor(Math.random() * 5500));
+  }
+
+  panels.forEach((panel, i) => {
+    setTimeout(() => scheduleNext(panel), i * 1500 + Math.floor(Math.random() * 800));
+  });
+})();
+
 // ── Footer year ──
 const yearEl = document.getElementById('footerYear');
 if (yearEl) yearEl.textContent = new Date().getFullYear();

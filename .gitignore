@@ -1,0 +1,17 @@
+# Superpowers / Claude tooling
+.superpowers/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Misc
+*.log
+summary.md
