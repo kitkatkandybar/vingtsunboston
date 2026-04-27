@@ -11,22 +11,30 @@ burger.addEventListener('click', () => {
   drawer.classList.toggle('open');
 });
 
-// Close drawer when a link is clicked
 document.querySelectorAll('.nav__drawer-link').forEach(link => {
   link.addEventListener('click', () => drawer.classList.remove('open'));
 });
 
+// ── Ig photo pool (shared by polaroid cycling + lightbox) ──
+const DELETED = new Set(['assets/gallery/ig_023.jpg']);
+const IG_IMAGES = Array.from({ length: 73 }, (_, i) => {
+  const n = String(i + 1).padStart(3, '0');
+  return `assets/gallery/ig_${n}.jpg`;
+}).filter(src => !DELETED.has(src));
+
 // ── Gallery Lightbox ──
 const allGalleryImgs = Array.from(document.querySelectorAll('.gallery-track__inner img'));
-// Deduplicate by src (rows are doubled for seamless loop)
 const uniqueSrcs = [...new Set(allGalleryImgs.map(i => i.src))];
 const lightbox    = document.getElementById('lightbox');
 const lightboxImg = document.getElementById('lightboxImg');
+let lightboxPool = [];
 let currentIdx = 0;
 
-function openLightbox(src) {
-  currentIdx = uniqueSrcs.indexOf(src);
-  lightboxImg.src = uniqueSrcs[currentIdx];
+function openLightbox(src, pool) {
+  lightboxPool = pool;
+  currentIdx = pool.indexOf(src);
+  if (currentIdx === -1) currentIdx = 0;
+  lightboxImg.src = lightboxPool[currentIdx];
   lightboxImg.alt = `Gallery image ${currentIdx + 1}`;
   lightbox.classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -36,16 +44,16 @@ function closeLightbox() {
   document.body.style.overflow = '';
 }
 function showNext() {
-  currentIdx = (currentIdx + 1) % uniqueSrcs.length;
-  lightboxImg.src = uniqueSrcs[currentIdx];
+  currentIdx = (currentIdx + 1) % lightboxPool.length;
+  lightboxImg.src = lightboxPool[currentIdx];
 }
 function showPrev() {
-  currentIdx = (currentIdx - 1 + uniqueSrcs.length) % uniqueSrcs.length;
-  lightboxImg.src = uniqueSrcs[currentIdx];
+  currentIdx = (currentIdx - 1 + lightboxPool.length) % lightboxPool.length;
+  lightboxImg.src = lightboxPool[currentIdx];
 }
 
 allGalleryImgs.forEach(img => {
-  img.addEventListener('click', () => openLightbox(img.src));
+  img.addEventListener('click', () => openLightbox(img.src, uniqueSrcs));
 });
 document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
 document.getElementById('lightboxNext').addEventListener('click', showNext);
@@ -60,22 +68,18 @@ document.addEventListener('keydown', e => {
 
 // ── Classes polaroid cycling ──
 (function () {
-  const IMAGES = Array.from({ length: 58 }, (_, i) => {
-    const n = String(i + 1).padStart(3, '0');
-    return `assets/gallery/ig_${n}.jpg`;
-  });
-
   const SWEEP_MS = 800;
 
   const panels = Array.from(document.querySelectorAll('.classes-photo-band .polaroid-frame')).map(frame => ({
     img:     frame.querySelector('img'),
     curtain: frame.querySelector('.polaroid-curtain'),
     bar:     frame.querySelector('.polaroid-bar'),
+    polaroid: frame.querySelector('.polaroid'),
     current: frame.querySelector('img').getAttribute('src'),
   }));
 
   function pickNext(current) {
-    const pool = IMAGES.filter(src => src !== current);
+    const pool = IG_IMAGES.filter(src => src !== current);
     return pool[Math.floor(Math.random() * pool.length)];
   }
 
@@ -115,6 +119,15 @@ document.addEventListener('keydown', e => {
   }
 
   panels.forEach((panel, i) => {
+    panel.polaroid.addEventListener('click', () => {
+      // IG_IMAGES and panel.current are both relative paths — indexOf is reliable
+      const idx = IG_IMAGES.indexOf(panel.current);
+      lightboxPool = IG_IMAGES;
+      currentIdx   = idx >= 0 ? idx : 0;
+      lightboxImg.src = panel.img.src; // use browser-resolved absolute URL
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
     setTimeout(() => scheduleNext(panel), i * 1500 + Math.floor(Math.random() * 800));
   });
 })();

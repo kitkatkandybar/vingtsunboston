@@ -823,6 +823,7 @@ ul { list-style: none; }
   transition: opacity var(--transition);
 }
 .footer__link:hover { opacity: 0.75; }
+.footer__social-link { display: inline-flex; align-items: center; gap: 4px; }
 
 .footer__bottom {
   display: flex;
