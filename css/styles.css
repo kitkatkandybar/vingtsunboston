@@ -182,6 +182,7 @@ ul { list-style: none; }
   z-index: 0;
 }
 .hero__bg-img {
+  display: block;
   width: 100%; height: 100%;
   object-fit: cover;
   object-position: center top;
