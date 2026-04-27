@@ -1,5 +1,6 @@
 # Superpowers / Claude tooling
 .superpowers/
+docs/superpowers/
 
 # OS
 .DS_Store
