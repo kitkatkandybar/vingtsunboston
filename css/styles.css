@@ -839,6 +839,76 @@ ul { list-style: none; }
   .footer__bottom { flex-direction: column; text-align: center; }
 }
 
+/* ── Why Train Here pillar grid ── */
+.pillar-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+.pillar-card {
+  background: var(--bg-alt);
+  border: 1px solid #1e1e1e;
+  border-top: 3px solid var(--gold);
+  padding: 32px 24px;
+}
+.pillar-card__num {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: var(--gold);
+  opacity: 0.75;
+  line-height: 1;
+  margin-bottom: 12px;
+}
+.pillar-card h3 {
+  color: var(--text);
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+}
+.pillar-card p {
+  color: var(--muted);
+  font-size: 0.875rem;
+  line-height: 1.7;
+}
+
+@media (max-width: 900px) {
+  .pillar-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 500px) {
+  .pillar-grid { grid-template-columns: 1fr; }
+}
+
+/* ── Free trial badge ── */
+.free-trial-badge {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: var(--gold-faint);
+  border: 1px solid var(--gold-dim);
+  border-left: 3px solid var(--gold);
+  padding: 16px 20px;
+  margin-top: 4px;
+}
+.free-trial-badge strong {
+  color: var(--gold);
+  font-size: 0.95rem;
+  font-weight: 900;
+}
+.free-trial-badge span {
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+/* ── Hero dual CTAs ── */
+.hero__ctas {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
 /* ── Scroll reveal ── */
 [data-reveal] {
   opacity: 0;
