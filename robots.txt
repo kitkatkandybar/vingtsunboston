@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.shunmo-vingtsun-usa.com/sitemap.xml
